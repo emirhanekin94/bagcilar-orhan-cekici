@@ -1,0 +1,16 @@
+{
+  "name": "XXX Çekici",
+  "short_name": "XXX Çekici",
+  "description": "Bağcılar & Avrupa Yakası 7/24 Acil Çekici ve Yol Yardım",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08142E",
+  "theme_color": "#1D4ED8",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
