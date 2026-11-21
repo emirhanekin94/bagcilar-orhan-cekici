@@ -79,6 +79,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   padding-inline: 16px;
 }
 
+.container > *,
+.hero-grid > *,
+.inner-hero-split > *,
+.prose-layout > *,
+.contact-grid > *,
+.split-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
@@ -333,7 +343,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
   align-items: center;
 }
@@ -483,9 +493,19 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font-size: 0.72rem;
   font-weight: 700;
   white-space: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background: rgba(8, 20, 46, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: #F8FAFC;
+}
+
+.sc-badge span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sc-badge svg { width: 13px; height: 13px; color: #FB923C; flex-shrink: 0; }
@@ -576,27 +596,27 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: relative;
   background: linear-gradient(145deg, var(--cobalt-night) 0%, var(--cobalt-deep) 55%, var(--cobalt-dark) 100%);
   color: #FFFFFF;
-  padding: 32px 0 36px;
+  padding: 22px 0 26px;
 }
 
 .inner-hero h1 {
   color: #FFFFFF;
-  font-size: clamp(1.7rem, 4.8vw, 2.65rem);
+  font-size: clamp(1.5rem, 4.8vw, 2.65rem);
   font-weight: 900;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .inner-hero-lead {
   color: #DBEAFE;
-  font-size: 1rem;
+  font-size: 0.94rem;
   max-width: 68ch;
   margin: 0;
 }
 
 .inner-hero-split {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
   align-items: center;
 }
 
@@ -604,7 +624,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
  * BÖLÜM YAPILARI & PERFORMANS (content-visibility)
  * ============================================================================ */
 .section {
-  padding: 52px 0;
+  padding: 36px 0;
   content-visibility: auto;
   contain-intrinsic-size: auto 580px;
 }
@@ -653,21 +673,27 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .trust-strip-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .trust-chip {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
+  min-width: 0;
   background: #FFFFFF;
   border: 1px solid var(--border-blue);
   border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 0.83rem;
+  padding: 10px 11px;
+  font-size: 0.81rem;
   font-weight: 700;
   color: var(--cobalt-deep);
+}
+
+.trust-chip:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-content: center;
 }
 
 .trust-chip svg { width: 18px; height: 18px; color: var(--orange); flex-shrink: 0; }
@@ -1424,7 +1450,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .sidebar-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   margin: 12px 0;
 }
@@ -1434,14 +1460,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+  min-width: 0;
   padding: 9px 11px;
   border-radius: 10px;
   background: var(--ice);
   border: 1px solid var(--border-blue);
   color: var(--cobalt-deep);
-  font-size: 0.82rem;
+  font-size: 0.81rem;
+  line-height: 1.25;
   font-weight: 700;
-  min-height: 40px;
+  min-height: 42px;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
@@ -1817,8 +1845,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 768px) {
   body { padding-bottom: 0; }
   .container { padding-inline: 24px; }
+  .section { padding: 56px 0; }
+  .inner-hero { padding: 36px 0 40px; }
 
   .trust-strip-grid { grid-template-columns: repeat(3, 1fr); }
+  .trust-chip:last-child:nth-child(odd) { grid-column: auto; justify-content: flex-start; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .steps-grid { grid-template-columns: repeat(2, 1fr); }
   .regions-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1915,5 +1946,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .blog-grid { grid-template-columns: repeat(3, 1fr); }
   .fleet-grid { grid-template-columns: repeat(3, 1fr); }
   .split-grid { grid-template-columns: 1.1fr 0.9fr; gap: 38px; }
-  .prose-layout { grid-template-columns: 1fr 330px; gap: 32px; }
+  .prose-layout { grid-template-columns: minmax(0, 1fr) 330px; gap: 32px; }
+  .sidebar-list { grid-template-columns: 1fr; }
 }
