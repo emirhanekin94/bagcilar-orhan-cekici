@@ -1,12 +1,12 @@
 /**
- * Ana Etkileşim & Google Ads Telefon Dönüşüm Motoru (main.js)
+ * Ana Etkileşim, Dinamik Ads Eşleştirme & Google Ads Dönüşüm Motoru (main.js)
  * ----------------------------------------------------------------------------
- * - Mobil menü, SSS akordiyon, 6→17 bölge toggle, bölge dizini kategori filtresi
+ * - Mobil menü, SSS akordiyon, 6→N bölge toggle, bölge dizini kategori filtresi
  * - Galeri Lightbox, Lazy Google Maps facade
- * - iOS Safari uyumlu api.whatsapp.com/send yönlendirmesi
- * - SADECE TELEFON ARAMASI (a[href^="tel:"]) için window.gtag_report_conversion(url)
- * - WhatsApp & Teklif Formu KESİNLİKLE Google Ads dönüşümü tetiklemez (sadece GA4)
- * - anti-fraud.js tarafından engellenen tıklamalarda (e.defaultPrevented / __fraudBlocked) dönüşüm gitmez
+ * - Dinamik ?hizmet= Ads Niyet Eşleştirici (statik güvenli allowlist)
+ * - iOS Safari uyumlu senkron WhatsApp açılışı (setTimeout/pop-up engeli YOK)
+ * - Birincil Ads dönüşümü: a[href^="tel:"] (anti-fraud korumalı)
+ * - Opsiyonel İkincil (Gözlem) Ads dönüşümü: adsWhatsappConversion
  */
 (function () {
   'use strict';
@@ -15,6 +15,7 @@
   var BRAND = CFG.brandName || 'Çekici';
   var WA_NUMBER = CFG.whatsappNumber || '';
   var ADS_CALL_CONV = (CFG.adsCallConversion || '').trim();
+  var ADS_WA_CONV = (CFG.adsWhatsappConversion || '').trim();
 
   function fireGA4(eventName, params) {
     try {
@@ -24,9 +25,21 @@
     } catch (_) {}
   }
 
+  function fireAdsWhatsapp() {
+    if (!ADS_WA_CONV || typeof window.gtag !== 'function' || window.__FRAUD_SUSPECT__ || window.__BOT_DETECTED__) {
+      return;
+    }
+    try {
+      window.gtag('event', 'conversion', {
+        send_to: ADS_WA_CONV,
+        transport_type: 'beacon'
+      });
+    } catch (_) {}
+  }
+
   /**
-   * Google Ads SADECE Telefon Araması Dönüşüm Fonksiyonu
-   * data/business.js içinde adsCallConversion doldurulduğunda otomatik aktif olur.
+   * Google Ads Telefon Araması Dönüşüm Fonksiyonu (Birincil Dönüşüm)
+   * Fraud/Bot şüphesi varsa dönüşüm gönderilmez, doğrudan arama yapılır.
    */
   window.gtag_report_conversion = function (url) {
     var navigated = false;
@@ -38,7 +51,13 @@
       }
     };
 
-    if (ADS_CALL_CONV && typeof window.gtag === 'function') {
+    var canReport =
+      ADS_CALL_CONV &&
+      typeof window.gtag === 'function' &&
+      !window.__FRAUD_SUSPECT__ &&
+      !window.__BOT_DETECTED__;
+
+    if (canReport) {
       try {
         window.gtag('event', 'conversion', {
           send_to: ADS_CALL_CONV,
@@ -50,13 +69,122 @@
       }
       setTimeout(go, 250);
     } else {
-      setTimeout(go, 120);
+      go();
     }
     return false;
   };
 
   function buildWhatsAppUrl(message) {
     return 'https://api.whatsapp.com/send?phone=' + WA_NUMBER + '&text=' + encodeURIComponent(message);
+  }
+
+  // 0. Dinamik Ads Niyet Eşleştirici (?hizmet=... / ?intent=...) — Sadece statik allowlist
+  function initAdsIntentMatcher() {
+    var regionName = (document.body && document.body.getAttribute('data-region')) || '';
+    var h1El = document.querySelector('[data-ads-h1]');
+    if (!regionName || !h1El) return;
+
+    var qs;
+    try {
+      qs = new URLSearchParams(window.location.search);
+    } catch (_) {
+      return;
+    }
+    var rawKey = (qs.get('hizmet') || qs.get('intent') || '').trim().toLowerCase();
+    if (!rawKey) return;
+
+    var INTENT_MAP = {
+      'oto-cekici': {
+        eyebrow: '7/24 Nöbetçi Oto Çekici',
+        mainSuffix: 'Oto Çekici &',
+        accent: '7/24 Kayar Kasa',
+        service: 'Oto Çekici & Kayar Kasa'
+      },
+      'oto-kurtarma': {
+        eyebrow: '7/24 Acil Oto Kurtarma',
+        mainSuffix: 'Oto Kurtarma &',
+        accent: '7/24 Acil Kurtarıcı',
+        service: 'Oto Kurtarma & Kazalı Araç'
+      },
+      'yol-yardim': {
+        eyebrow: '7/24 Mobil Yol Yardım',
+        mainSuffix: 'Yol Yardım &',
+        accent: '7/24 Acil Oto Çekici',
+        service: 'Oto Çekici & Kayar Kasa'
+      },
+      'en-yakin': {
+        eyebrow: 'En Yakın Nöbetçi Çekici',
+        mainSuffix: 'En Yakın Çekici —',
+        accent: '10–15 Dk Hızlı İntikal',
+        service: 'Oto Çekici & Kayar Kasa'
+      },
+      'aku-takviye': {
+        eyebrow: '7/24 Yerinde Akü Takviye',
+        mainSuffix: 'Akü Takviye &',
+        accent: '7/24 Booster Yol Yardım',
+        service: 'Yerinde Akü Takviye'
+      },
+      lastik: {
+        eyebrow: '7/24 Mobil Lastik Yol Yardım',
+        mainSuffix: 'Lastik Yol Yardım &',
+        accent: '7/24 Acil Değişim',
+        service: 'Mobil Lastik Yol Yardım'
+      },
+      'kapali-otopark': {
+        eyebrow: '2.10m Altı Kapalı Otopark Çekici',
+        mainSuffix: 'Kapalı Otopark Çekici &',
+        accent: 'Alçak Tavan Kurtarıcı',
+        service: 'Kapalı Otopark Çekici'
+      },
+      ahtapot: {
+        eyebrow: 'Vinçli Ahtapot Kurtarıcı',
+        mainSuffix: 'Ahtapot Çekici &',
+        accent: 'Hasarsız Vinçli Kurtarma',
+        service: 'Ahtapot & Vinçli Kurtarma'
+      },
+      motosiklet: {
+        eyebrow: 'Özel Kızaklı Motosiklet Çekici',
+        mainSuffix: 'Motosiklet Çekici &',
+        accent: '7/24 Hasarsız Taşıma',
+        service: 'Motosiklet Çekici'
+      },
+      fiyat: {
+        eyebrow: 'Telefonda Sabit Fiyat Güvencesi',
+        mainSuffix: 'Oto Çekici Fiyatları —',
+        accent: '7/24 Sabit Ücret',
+        service: 'Oto Çekici & Kayar Kasa'
+      }
+    };
+
+    var spec = Object.prototype.hasOwnProperty.call(INTENT_MAP, rawKey) ? INTENT_MAP[rawKey] : null;
+    if (!spec) return;
+
+    var eyebrowEl = document.querySelector('[data-ads-eyebrow]');
+    if (eyebrowEl) {
+      var dot = eyebrowEl.querySelector('.pulse-dot');
+      eyebrowEl.textContent = '';
+      if (dot) eyebrowEl.appendChild(dot);
+      var spanEyebrow = document.createElement('span');
+      spanEyebrow.textContent = regionName + ' ' + spec.eyebrow;
+      eyebrowEl.appendChild(spanEyebrow);
+    }
+
+    h1El.textContent = '';
+    h1El.appendChild(document.createTextNode(regionName + ' ' + spec.mainSuffix + ' '));
+    var accentEl = document.createElement('span');
+    accentEl.className = 'hero-accent';
+    accentEl.textContent = spec.accent;
+    h1El.appendChild(accentEl);
+
+    var serviceSel = document.getElementById('qf-service');
+    if (serviceSel && spec.service) {
+      for (var i = 0; i < serviceSel.options.length; i++) {
+        if (serviceSel.options[i].value === spec.service) {
+          serviceSel.selectedIndex = i;
+          break;
+        }
+      }
+    }
   }
 
   // 1. Mobil Menü Toggle
@@ -111,14 +239,14 @@
     });
   }
 
-  // 3. Ana Sayfa 6 → 17 Bölge İnteraktif Toggle
+  // 3. Ana Sayfa 6 → N Bölge İnteraktif Toggle
   function initRegionsToggle() {
     var toggleBtn = document.getElementById('toggle-regions-btn');
     var grid = document.getElementById('home-regions-grid');
     if (!toggleBtn || !grid) return;
 
     var expanded = false;
-    var totalCount = toggleBtn.getAttribute('data-total') || '17';
+    var totalCount = toggleBtn.getAttribute('data-total') || '26';
     var labelEl = toggleBtn.querySelector('.toggle-label');
 
     toggleBtn.addEventListener('click', function () {
@@ -168,7 +296,7 @@
     });
   }
 
-  // 5. Hızlı WhatsApp Fiyat Teklifi Formu (Sadece GA4 generate_lead — Ads Conversion YOK)
+  // 5. Hızlı WhatsApp Fiyat Teklifi Formu (iOS Safari uyumlu senkron açılış)
   function initQuoteForms() {
     document.querySelectorAll('.js-quote-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
@@ -200,48 +328,50 @@
           service_type: service,
           page_path: window.location.pathname
         });
+        fireAdsWhatsapp();
 
         var url = buildWhatsAppUrl(lines.join('\n'));
-        setTimeout(function () {
-          window.open(url, '_blank', 'noopener,noreferrer');
-        }, 120);
+        var win = window.open(url, '_blank', 'noopener,noreferrer');
+        if (!win) {
+          window.location.href = url;
+        }
       });
     });
   }
 
-  // 6. Telefon & WhatsApp Tıklama Yönetimi
+  // 6. Telefon & WhatsApp Tıklama Yönetimi (Safari uyumlu, gecikmesiz)
   function initContactTracking() {
     document.addEventListener('click', function (e) {
       if (e.defaultPrevented || e.__fraudBlocked || window.__BOT_DETECTED__) return;
 
-      // A) TELEFON ARAMASI — SADECE BURADA Google Ads Conversion tetiklenir
+      // A) TELEFON ARAMASI — Birincil Google Ads Dönüşümü
       var telAnchor = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
       if (telAnchor) {
         var href = telAnchor.getAttribute('href');
         if (!href) return;
-        e.preventDefault();
         fireGA4('click_call', {
           link_url: href,
           placement: telAnchor.getAttribute('data-placement') || 'page',
           page_path: window.location.pathname
         });
-        window.gtag_report_conversion(href);
+        if (ADS_CALL_CONV && typeof window.gtag === 'function' && !window.__FRAUD_SUSPECT__) {
+          e.preventDefault();
+          window.gtag_report_conversion(href);
+        }
         return;
       }
 
-      // B) WHATSAPP / KONUM GÖNDER — Sadece GA4 event (Ads Conversion KESİNLİKLE YOK)
+      // B) WHATSAPP / KONUM GÖNDER — Doğrudan yerel link tıklaması (pop-up engeli yok)
       var waAnchor = e.target && e.target.closest ? e.target.closest('a[href*="whatsapp.com"], .btn-send-location') : null;
       if (waAnchor) {
         var regionAttr = waAnchor.getAttribute('data-region') || document.body.getAttribute('data-region') || '';
         var isLocationBtn = waAnchor.classList.contains('btn-send-location');
-        var waHref = waAnchor.getAttribute('href');
 
         if (isLocationBtn && WA_NUMBER) {
           var msg = regionAttr
             ? 'Merhaba ' + BRAND + ', acil çekiciye ihtiyacım var. Bulunduğum Bölge: ' + regionAttr + ' (Konumumu hemen ardından paylaşıyorum.)'
             : 'Merhaba ' + BRAND + ', acil çekiciye ihtiyacım var. Konumumu hemen ardından paylaşıyorum.';
-          waHref = buildWhatsAppUrl(msg);
-          waAnchor.setAttribute('href', waHref);
+          waAnchor.setAttribute('href', buildWhatsAppUrl(msg));
         }
 
         fireGA4(isLocationBtn ? 'konum_at_tiklama' : 'click_whatsapp', {
@@ -249,13 +379,7 @@
           placement: waAnchor.getAttribute('data-placement') || 'page',
           page_path: window.location.pathname
         });
-
-        if (waHref) {
-          e.preventDefault();
-          setTimeout(function () {
-            window.open(waHref, '_blank', 'noopener,noreferrer');
-          }, 120);
-        }
+        fireAdsWhatsapp();
       }
     });
   }
@@ -334,6 +458,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    initAdsIntentMatcher();
     initMobileNav();
     initFaq();
     initRegionsToggle();

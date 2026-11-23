@@ -11,9 +11,16 @@
   'use strict';
 
   var STORAGE_KEY = 'rescue_ad_clicks_v1';
+  var SESSION_FRAUD_KEY = 'rescue_fraud_suspect';
   var WINDOW_MS = 2 * 60 * 60 * 1000; // 2 saat
   var DEBOUNCE_MS = 800;
   var lastActionTime = 0;
+
+  try {
+    if (sessionStorage.getItem(SESSION_FRAUD_KEY) === '1') {
+      window.__FRAUD_SUSPECT__ = true;
+    }
+  } catch (_) {}
 
   function safeGtag(eventName, params) {
     try {
@@ -46,6 +53,9 @@
 
       if (stamps.length > 2) {
         window.__FRAUD_SUSPECT__ = true;
+        try {
+          sessionStorage.setItem(SESSION_FRAUD_KEY, '1');
+        } catch (_) {}
         safeGtag('suspected_click_fraud', {
           click_count_2h: stamps.length,
           page_path: window.location.pathname

@@ -32,6 +32,44 @@ function writeHtml(relPath, html) {
   fs.writeFileSync(full, html, 'utf8');
 }
 
+function haversineKm(a, b) {
+  const toRad = d => (d * Math.PI) / 180;
+  const R = 6371;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+function fitMetaDesc(str, maxLen = 158) {
+  const clean = String(str || '').replace(/\s+/g, ' ').trim();
+  if (clean.length <= maxLen) return clean;
+  const cut = clean.slice(0, maxLen - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 90 ? cut.slice(0, lastSpace) : cut).replace(/[,:;.-]+$/, '') + '.';
+}
+
+function buildRegionTitle(r) {
+  const t1 = `${r.name} Oto Çekici | 7/24 Yol Yardım — ${BUSINESS.shortName}`;
+  if (t1.length <= 65) return t1;
+  const t2 = `${r.name} Oto Çekici | 7/24 — ${BUSINESS.shortName}`;
+  if (t2.length <= 65) return t2;
+  return `${r.name} Oto Çekici | ${BUSINESS.shortName}`;
+}
+
+function buildRegionDesc(r) {
+  const eta = r.eta || '10-15 dk';
+  const lm1 = r.landmarks[0] || r.name;
+  const lm2 = r.landmarks[1] || '';
+  const cand1 = `${r.name} oto çekici ve 7/24 yol yardım. ${lm1}${lm2 ? ', ' + lm2 : ''} için ${eta} varış, sabit fiyat: ${BUSINESS.phoneDisplay}`;
+  if (cand1.length <= 160) return cand1;
+  const cand2 = `${r.name} oto çekici ve 7/24 yol yardım. ${lm1} için ${eta} kaskolu araç sevki, sabit fiyat: ${BUSINESS.phoneDisplay}`;
+  if (cand2.length <= 160) return cand2;
+  return `${r.name} oto çekici ve 7/24 yol yardım. ${eta} hızlı varış, kaskolu taşıma ve sabit fiyat: ${BUSINESS.phoneDisplay}`;
+}
+
 // ============================================================================
 // ORTAK BİLEŞENLER
 // ============================================================================
@@ -288,6 +326,7 @@ function buildHomePage() {
         <div class="pillar-pill">${ICONS.shield}<span>%100 Kaskolu Sıfır Hasar</span></div>
         <div class="pillar-pill">${ICONS.tag}<span>Sabit Fiyat Telefonda Onay</span></div>
       </div>
+      <a href="${telLink()}" class="hero-mobile-call" data-placement="hero_mobile">${ICONS.phone}<span><strong>7/24 Acil Çekici:</strong> ${BUSINESS.phoneDisplay}</span></a>
       <div class="hero-desktop-actions">
         <a href="${telLink()}" class="btn btn-orange" data-placement="hero_desktop">${ICONS.phone}<span>Hemen Ara: ${BUSINESS.phoneDisplay}</span></a>
         <a href="${waLink()}" class="btn btn-wa btn-send-location" data-placement="hero_desktop" data-region="Bağcılar" target="_blank" rel="noopener noreferrer">${ICONS.whatsapp}<span>WhatsApp Konum Gönder</span></a>
@@ -348,7 +387,7 @@ function buildHomePage() {
 <section class="section section-dark" id="bolgelerimiz">
   <div class="container">
     <div class="section-head">
-      <span class="section-eyebrow">17 Stratejik Nöbet Noktası</span>
+      <span class="section-eyebrow">${regions.length} Stratejik Nöbet Noktası</span>
       <h2>Hizmet Verdiğimiz Bölgeler</h2>
       <p>Bağcılar merkezli filomuz, Avrupa Yakası'nın en yoğun ana arterlerinde ve sanayi bölgelerinde anlık hazır bekler.</p>
     </div>
@@ -474,7 +513,7 @@ ${buildFaqSection(homeFaqs, 'Oto Çekici ve Yol Yardım Hakkında Merak Edilenle
   const html = renderPage({
     headArgs: {
       title: `Bağcılar Oto Çekici & 7/24 Yol Yardım | ${BUSINESS.name}`,
-      description: `${BUSINESS.name} — Bağcılar, Basın Ekspres, Mahmutbey, Güneşli, İSTOÇ ve Avrupa Yakası 7/24 kaskolu kayar kasa çekici ve yol yardım. 10-15 dk varış: ${BUSINESS.phoneDisplay}`,
+      description: fitMetaDesc(`${BUSINESS.name} — Bağcılar, Basın Ekspres, Mahmutbey, Güneşli, İSTOÇ ve Avrupa Yakası 7/24 kaskolu oto çekici ve yol yardım: ${BUSINESS.phoneDisplay}`, 160),
       canonicalPath: '/',
       preloadHero: 'hero-main',
       ogImage: 'hero-main',
@@ -495,21 +534,21 @@ ${buildFaqSection(homeFaqs, 'Oto Çekici ve Yol Yardım Hakkında Merak Edilenle
 }
 
 // ============================================================================
-// 2. BÖLGELER DİZİNİ (bolgeler/index.html) + 17 BÖLGE SAYFASI
+// 2. BÖLGELER DİZİNİ (bolgeler/index.html) + TÜM BÖLGE SAYFALARI
 // ============================================================================
 function buildRegionsDirectory() {
   const dirFaqs = [
     {
-      q: 'Hizmet verdiğiniz 17 bölge dışında Avrupa Yakası ilçelerine geliyor musunuz?',
-      a: 'Evet. Bağcılar merkezli 17 ana bölgemize ek olarak Avrupa Yakası ve şehirlerarası güzergahlara planlı veya acil araç transferi sağlıyoruz.'
+      q: `Hizmet verdiğiniz ${regions.length} bölge dışında Avrupa Yakası ilçelerine geliyor musunuz?`,
+      a: `Evet. Bağcılar merkezli ${regions.length} ana bölgemize ek olarak Avrupa Yakası geneli ve şehirlerarası güzergahlara planlı veya acil araç transferi sağlıyoruz.`
     },
     {
       q: 'En hızlı hangi bölgelere ulaşabiliyorsunuz?',
-      a: 'Bağcılar, Göztepe, Güneşli, Mahmutbey, Basın Ekspres, İSTOÇ, Yüzyıl ve Tekstilkent bölgelerinde araçlarımız sürekli devriye halindedir ve ortalama 10–15 dakikada varır.'
+      a: 'Bağcılar, Kirazlı, Göztepe, Güneşli, Mahmutbey, Basın Ekspres, İSTOÇ, Yüzyıl ve Tekstilkent bölgelerinde araçlarımız sürekli devriye halindedir ve ortalama 10–15 dakikada varır.'
     },
     {
       q: 'Otoyol ve gişe çıkışlarında güvenli yükleme yapıyor musunuz?',
-      a: 'TEM Mahmutbey Gişeleri, Basın Ekspres Yolu ve E-5 yan yollarında reflektör ve yüksek görünürlüklü tepe lambalarıyla emniyet şeridi kurallarına uygun yükleme yapılır.'
+      a: 'TEM Otoyolu Mahmutbey Gişeleri, Basın Ekspres Yolu ve E-5 (D-100) yan yollarında reflektör ve yüksek görünürlüklü tepe lambalarıyla emniyet şeridi kurallarına uygun yükleme yapılır.'
     },
     {
       q: 'Bölge içi ile ilçeler arası çekici fiyat farkı nasıl hesaplanır?',
@@ -534,6 +573,13 @@ function buildRegionsDirectory() {
 
 <section class="section">
   <div class="container">
+    <div class="region-filter-bar" role="group" aria-label="Bölge kategorisi filtresi">
+      <button type="button" class="filter-pill is-active" data-filter="all" aria-pressed="true">Tümü (${regions.length})</button>
+      <button type="button" class="filter-pill" data-filter="ilce" aria-pressed="false">İlçeler</button>
+      <button type="button" class="filter-pill" data-filter="mahalle" aria-pressed="false">Mahalle &amp; Semtler</button>
+      <button type="button" class="filter-pill" data-filter="sanayi" aria-pressed="false">Sanayi &amp; Ticaret</button>
+      <button type="button" class="filter-pill" data-filter="otoyol" aria-pressed="false">Otoyol &amp; Ana Arter</button>
+    </div>
     <div class="regions-grid regions-directory-grid">
       ${regions.map(r => renderRegionCard(r, false)).join('\n      ')}
     </div>
@@ -575,8 +621,8 @@ ${buildFaqSection(dirFaqs, 'Bölgesel Çekici Hizmeti Hakkında SSS', 'Sıkça S
 
   const html = renderPage({
     headArgs: {
-      title: `Hizmet Bölgelerimiz (17 Bölge) | ${BUSINESS.name}`,
-      description: `Bağcılar, Göztepe, Güneşli, Mahmutbey, Basın Ekspres, İSTOÇ, İkitelli, Esenler, Bahçelievler, Merter ve 17 Avrupa Yakası bölgesinde 7/24 oto çekici.`,
+      title: `Hizmet Bölgelerimiz (${regions.length} Bölge) | ${BUSINESS.name}`,
+      description: fitMetaDesc(`Bağcılar, Güneşli, Mahmutbey, Basın Ekspres, İSTOÇ, İkitelli, TEM, E-5 ve ${regions.length} Avrupa Yakası bölgesinde 7/24 oto çekici ve yol yardım.`, 160),
       canonicalPath: '/bolgeler/',
       schemas: [
         localBusinessSchema(),
@@ -597,12 +643,13 @@ ${buildFaqSection(dirFaqs, 'Bölgesel Çekici Hizmeti Hakkında SSS', 'Sıkça S
 }
 
 function buildRegionDetailPage(r, index) {
-  // 8 komşu/diğer bölge seç
-  const neighbors = [];
-  for (let offset = 1; offset <= regions.length && neighbors.length < 8; offset++) {
-    const candidate = regions[(index + offset) % regions.length];
-    if (candidate.slug !== r.slug) neighbors.push(candidate);
-  }
+  // Coğrafi mesafeye göre en yakın 8 komşu bölge (Haversine)
+  const neighbors = regions
+    .filter(c => c.slug !== r.slug)
+    .map(c => ({ region: c, dist: haversineKm(r.geo, c.geo) }))
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, 8)
+    .map(item => item.region);
 
   const regionSteps = [
     {
@@ -637,13 +684,15 @@ function buildRegionDetailPage(r, index) {
         <a href="/bolgeler/">Hizmet Bölgeleri</a><span class="breadcrumb-sep">/</span>
         <span>${escapeHtml(r.name)}</span>
       </nav>
-      <h1>${escapeHtml(r.name)} Çekici &amp; <span class="hero-accent">${escapeHtml(r.name)} Oto Kurtarma</span></h1>
+      <div class="dispatch-tag" data-ads-eyebrow><span class="pulse-dot" aria-hidden="true"></span><span>${escapeHtml(r.name)} 7/24 Nöbetçi Oto Çekici &amp; Kurtarıcı</span></div>
+      <h1 data-ads-h1>${escapeHtml(r.name)} Oto Çekici &amp; <span class="hero-accent">7/24 ${escapeHtml(r.name)} Yol Yardım</span></h1>
       <p class="hero-lead">${escapeHtml(r.heroLead)}</p>
       <div class="hero-key-pillars">
         <div class="pillar-pill">${ICONS.clock}<span>${escapeHtml(r.eta || '10–15 Dk')} Hızlı İntikal</span></div>
         <div class="pillar-pill">${ICONS.shield}<span>%100 Kaskolu Sıfır Hasar</span></div>
         <div class="pillar-pill">${ICONS.tag}<span>Sabit Fiyat Telefonda Onay</span></div>
       </div>
+      <a href="${telLink()}" class="hero-mobile-call" data-placement="hero_mobile">${ICONS.phone}<span><strong>7/24 Acil Çekici:</strong> ${BUSINESS.phoneDisplay}</span></a>
       <div class="hero-desktop-actions">
         <a href="${telLink()}" class="btn btn-orange" data-placement="region_hero">${ICONS.phone}<span>Hemen Ara: ${BUSINESS.phoneDisplay}</span></a>
         <a href="${waRegionLink(r.name)}" class="btn btn-wa btn-send-location" data-placement="region_hero" data-region="${escapeHtml(r.name)}" target="_blank" rel="noopener noreferrer">${ICONS.whatsapp}<span>${escapeHtml(r.name)} Konum Gönder</span></a>
@@ -652,7 +701,7 @@ function buildRegionDetailPage(r, index) {
     <div class="region-hero-right">
       ${buildShowcaseCard({
         imageBase: r.hero,
-        alt: `${r.name} çekici ve oto kurtarma saha operasyonu — ${BUSINESS.name}`,
+        alt: `${r.name} oto çekici ve oto kurtarma saha operasyonu — ${BUSINESS.name}`,
         badgeRegion: r.name,
         isHero: true
       })}
@@ -671,10 +720,30 @@ function buildRegionDetailPage(r, index) {
   </div>
 </div>
 
+<div class="region-landmarks-bar">
+  <div class="container">
+    <h2 class="landmarks-heading">${escapeHtml(r.name)} En Yakın Çekici &amp; Nöbetçi Noktalarımız</h2>
+    <div class="landmark-chips">
+      ${r.landmarks.map(l => `<span class="landmark-chip">${ICONS.pin}<span>${escapeHtml(l)}</span></span>`).join('\n      ')}
+    </div>
+  </div>
+</div>
+
 <section class="section">
   <div class="container prose-layout">
     <article class="article-body">
       ${r.articleHtml}
+
+      <div class="region-pricing-card">
+        <h2>${escapeHtml(r.name)} Oto Çekici Fiyatları &amp; Hizmet Kapsamı</h2>
+        <p>${escapeHtml(r.name)} çekici ücretleri; aracın bulunduğu konum ile bırakılacağı yetkili servis veya sanayi sitesi arasındaki kilometre, araç segmenti ve gereken donanıma göre telefonda netleştirilir. Gece saatlerinde sürpriz ek tarife uygulanmaz; mobil POS ve KDV dahil fatura sunulur.</p>
+        <div class="region-intent-links">
+          <a href="/bolgeler/${r.slug}-oto-cekici.html?hizmet=oto-cekici" class="intent-chip">${ICONS.truck}<span>${escapeHtml(r.name)} Oto Çekici</span></a>
+          <a href="/bolgeler/${r.slug}-oto-cekici.html?hizmet=oto-kurtarma" class="intent-chip">${ICONS.shield}<span>${escapeHtml(r.name)} Oto Kurtarma</span></a>
+          <a href="/bolgeler/${r.slug}-oto-cekici.html?hizmet=aku-takviye" class="intent-chip">${ICONS.wrench}<span>${escapeHtml(r.name)} Akü Takviye</span></a>
+          <a href="/bolgeler/${r.slug}-oto-cekici.html?hizmet=kapali-otopark" class="intent-chip">${ICONS.pin}<span>${escapeHtml(r.name)} Kapalı Otopark Çekici</span></a>
+        </div>
+      </div>
 
       <h2>${escapeHtml(r.name)} Bölgesinde Taşınan Araç Tipleri &amp; Donanım</h2>
       <div class="table-wrap">
@@ -766,8 +835,8 @@ ${buildFaqSection(r.faqs, `${r.name} Oto Çekici Sıkça Sorulan Sorular`, `${r.
 
   const html = renderPage({
     headArgs: {
-      title: `${r.name} Çekici | 7/24 ${r.name} Oto Kurtarma — ${BUSINESS.name}`,
-      description: `${r.name} oto çekici ve 7/24 yol yardım. ${r.landmarks.slice(0, 3).join(', ')} noktalarına ${r.eta || '10-15 dk'} içinde kaskolu kayar kasa araç sevki: ${BUSINESS.phoneDisplay}`,
+      title: buildRegionTitle(r),
+      description: buildRegionDesc(r),
       canonicalPath: `/bolgeler/${r.slug}-oto-cekici.html`,
       preloadHero: r.hero,
       ogImage: r.hero,
@@ -975,7 +1044,7 @@ ${buildFaqSection(s.faqs, `${s.shortTitle} Hakkında Sıkça Sorulan Sorular`, '
     name: s.title,
     serviceType: s.shortTitle,
     provider: {
-      '@type': 'TowingService',
+      '@type': 'AutoRepair',
       name: BUSINESS.name,
       telephone: BUSINESS.phoneTel,
       url: `${SITE_URL}/`
@@ -986,8 +1055,8 @@ ${buildFaqSection(s.faqs, `${s.shortTitle} Hakkında Sıkça Sorulan Sorular`, '
 
   const html = renderPage({
     headArgs: {
-      title: `${s.title} | 7/24 Kaskolu Hizmet — ${BUSINESS.name}`,
-      description: `${s.summary} Bağcılar ve Avrupa Yakası 10-15 dk varış, sabit fiyat güvencesi. ${BUSINESS.name}: ${BUSINESS.phoneDisplay}`,
+      title: `${s.shortTitle} | 7/24 Kaskolu Hizmet — ${BUSINESS.shortName}`,
+      description: fitMetaDesc(`${s.summary} 10-15 dk varış, sabit fiyat: ${BUSINESS.phoneDisplay}`, 160),
       canonicalPath: `/hizmetler/${s.slug}.html`,
       preloadHero: s.image,
       ogImage: s.image,
@@ -1177,8 +1246,8 @@ ${buildFaqSection(b.faqs, 'Bu Konuda Sıkça Sorulan Sorular', 'Teknik SSS', 'se
 
   const html = renderPage({
     headArgs: {
-      title: `${b.title} | ${BUSINESS.name}`,
-      description: b.excerpt,
+      title: `${b.shortTitle} | Rehber — ${BUSINESS.shortName}`,
+      description: fitMetaDesc(b.excerpt, 160),
       canonicalPath: `/blog/${b.slug}.html`,
       preloadHero: b.image,
       ogImage: b.image,
@@ -1345,7 +1414,7 @@ function buildAboutPage() {
       <a href="/">Ana Sayfa</a><span class="breadcrumb-sep">/</span><span>Hakkımızda</span>
     </nav>
     <h1>${escapeHtml(BUSINESS.name)} — Kurumsal Filo &amp; Saha Standartlarımız</h1>
-    <p class="inner-hero-lead">Bağcılar merkezli yerel hakimiyetimiz, modern hidrolik filomuz ve telefonda net sabit fiyat ilkemizle Avrupa Yakası'nın 17 stratejik bölgesinde 7/24 kesintisiz yanınızdayız.</p>
+    <p class="inner-hero-lead">Bağcılar merkezli yerel hakimiyetimiz, modern hidrolik filomuz ve telefonda net sabit fiyat ilkemizle Avrupa Yakası'nın ${regions.length} stratejik bölgesinde 7/24 kesintisiz yanınızdayız.</p>
     <div class="about-stats">
       <div class="about-stat-box"><div class="about-stat-val">10–15 Dk</div><div class="about-stat-lbl">Ortalama Varış Süresi</div></div>
       <div class="about-stat-box"><div class="about-stat-val">7/24</div><div class="about-stat-lbl">Kesintisiz Nöbetçi Filo</div></div>
@@ -1488,7 +1557,7 @@ function buildContactPage() {
       <a href="/">Ana Sayfa</a><span class="breadcrumb-sep">/</span><span>İletişim</span>
     </nav>
     <h1>7/24 Acil Çekici İletişim &amp; Konum Hattı</h1>
-    <p class="inner-hero-lead">Bağcılar ve Avrupa Yakası'nın 17 bölgesinde gece gündüz tek numara üzerinden doğrudan saha operatörüne ulaşın.</p>
+    <p class="inner-hero-lead">Bağcılar ve Avrupa Yakası'nın ${regions.length} bölgesinde gece gündüz tek numara üzerinden doğrudan saha operatörüne ulaşın.</p>
   </div>
 </section>
 
@@ -1510,11 +1579,18 @@ function buildContactPage() {
           <a href="${waLink()}" class="contact-val btn-send-location" data-placement="contact_page" data-region="Bağcılar" target="_blank" rel="noopener noreferrer">Canlı Konum Gönder</a>
         </div>
       </div>
+      ${BUSINESS.email ? `<div class="contact-row">
+        ${ICONS.award}
+        <div>
+          <div class="contact-label">Kurumsal E-Posta</div>
+          <a href="mailto:${escapeHtml(BUSINESS.email)}" class="contact-val">${escapeHtml(BUSINESS.email)}</a>
+        </div>
+      </div>` : ''}
       <div class="contact-row">
         ${ICONS.pin}
         <div>
           <div class="contact-label">Ana Merkez &amp; Nöbetçi Nokta</div>
-          <div class="contact-val">${escapeHtml(BUSINESS.address.street)} (${BUSINESS.address.locality}, ${BUSINESS.address.region})</div>
+          <div class="contact-val">${escapeHtml(BUSINESS.address.street)} (${escapeHtml(BUSINESS.address.postalCode)} ${escapeHtml(BUSINESS.address.locality)}, ${escapeHtml(BUSINESS.address.region)})</div>
         </div>
       </div>
       <div class="contact-row">
@@ -1579,7 +1655,7 @@ function buildPrivacyPage() {
   <div class="container">
     <article class="article-body" style="max-width:880px;">
       <h2>1. Veri Sorumlusu</h2>
-      <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla <strong>${escapeHtml(BUSINESS.legalName)}</strong> tarafından aşağıda açıklanan kapsamda işlenmektedir. İletişim hattımız: <strong>${BUSINESS.phoneDisplay}</strong>.</p>
+      <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla <strong>${escapeHtml(BUSINESS.legalName)}</strong> tarafından aşağıda açıklanan kapsamda işlenmektedir. Adres: <strong>${escapeHtml(BUSINESS.address.street)}, ${escapeHtml(BUSINESS.address.postalCode)} ${escapeHtml(BUSINESS.address.locality)}/${escapeHtml(BUSINESS.address.region)}</strong>. İletişim hattımız: <strong>${BUSINESS.phoneDisplay}</strong>${BUSINESS.email ? ` &middot; E-posta: <strong>${escapeHtml(BUSINESS.email)}</strong>` : ''}.</p>
 
       <h2>2. İşlenen Kişisel Veriler ve Amaçları</h2>
       <p>Acil oto çekici, oto kurtarma ve yol yardım hizmeti talep ettiğinizde telefon veya WhatsApp üzerinden paylaştığınız ad-soyad, telefon numarası, konum bilgisi, araç tipi ve fatura bilgileri yalnızca şu amaçlarla işlenir:</p>
@@ -1605,7 +1681,7 @@ function buildPrivacyPage() {
   const html = renderPage({
     headArgs: {
       title: `Gizlilik & KVKK Politikası | ${BUSINESS.name}`,
-      description: `${BUSINESS.name} gizlilik politikası, 6698 sayılı KVKK aydınlatma metni ve çerez kullanımı esasları.`,
+      description: fitMetaDesc(`${BUSINESS.name} gizlilik politikası, 6698 sayılı KVKK kapsamında kişisel veri işleme aydınlatma metni ve çerez kullanımı esasları.`, 160),
       canonicalPath: '/gizlilik-politikasi.html',
       schemas: [
         breadcrumbSchema([
@@ -1623,9 +1699,14 @@ function buildPrivacyPage() {
 }
 
 function build404Page() {
+  const popularSlugs = ['bagcilar', 'basin-ekspres', 'mahmutbey', 'gunesli', 'istoc', 'bahcelievler', 'bakirkoy', 'tem-otoyolu', 'e5'];
+  const popularRegions = popularSlugs
+    .map(slug => regions.find(r => r.slug === slug))
+    .filter(Boolean);
+
   const html = `${buildHead({
     title: `Sayfa Bulunamadı (404) | ${BUSINESS.name}`,
-    description: `Aradığınız sayfa bulunamadı. 7/24 acil çekici için hemen arayın: ${BUSINESS.phoneDisplay}`,
+    description: `Aradığınız sayfa bulunamadı. Bağcılar ve Avrupa Yakası 7/24 acil oto çekici ve yol yardım için hemen arayın: ${BUSINESS.phoneDisplay}`,
     canonicalPath: '/404.html',
     noindex: true
   })}
@@ -1633,13 +1714,19 @@ function build404Page() {
 ${buildHeader(null, '')}
 <main id="main-content">
   <section class="section" style="text-align:center;padding:72px 0;">
-    <div class="container" style="max-width:620px;">
+    <div class="container" style="max-width:720px;">
       <span class="section-eyebrow">Hata 404</span>
       <h1 style="font-size:2.4rem;color:var(--cobalt-deep);">Aradığınız Sayfa Bulunamadı</h1>
       <p style="color:var(--muted);margin-bottom:24px;">Sayfa taşınmış veya kaldırılmış olabilir. Acil oto çekici veya yol yardım ihtiyacınız varsa doğrudan bizi arayabilir ya da ana sayfaya dönebilirsiniz.</p>
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
         <a href="${telLink()}" class="btn btn-orange" data-placement="page_404">${ICONS.phone}<span>Hemen Ara: ${BUSINESS.phoneDisplay}</span></a>
         <a href="/" class="btn btn-outline-cobalt">Ana Sayfaya Dön</a>
+      </div>
+      <div class="notfound-regions">
+        <p style="font-size:0.86rem;font-weight:700;color:var(--cobalt-deep);margin-bottom:10px;">Popüler Hizmet Bölgelerimiz</p>
+        <div class="landmark-chips" style="justify-content:center;">
+          ${popularRegions.map(r => `<a href="/bolgeler/${r.slug}-oto-cekici.html" class="landmark-chip">${ICONS.pin}<span>${escapeHtml(r.name)} Çekici</span></a>`).join('\n          ')}
+        </div>
       </div>
     </div>
   </section>

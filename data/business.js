@@ -20,6 +20,7 @@ const BUSINESS = {
   phoneDisplay: '0539 732 57 80',
   phoneTel: '+905397325780',
   whatsappNumber: '905397325780',
+  email: '', // Örn: 'info@alanadiniz.com' — İletişim ve KVKK sayfasında otomatik görünür
   hours: '7 Gün 24 Saat Kesintisiz',
   etaMinutes: '10–15 Dk',
   foundedYears: '12+',
@@ -39,11 +40,12 @@ const BUSINESS = {
     longitude: 28.8567
   },
   sameAs: [],
-  // ---- Google Ads & Analytics (SADECE Telefon Araması Dönüşümüne Hazır) ----
+  // ---- Google Ads & Analytics (Telefon = Birincil, WhatsApp = Opsiyonel İkincil) ----
   analytics: {
-    ga4Id: '',              // Örn: 'G-XXXXXXXXXX'
-    adsId: '',              // Örn: 'AW-XXXXXXXXXX'
-    adsCallConversion: ''   // Örn: 'AW-XXXXXXXXXX/AbCdEfGhIjKlMnOp' (YALNIZCA tel: tıklamaları)
+    ga4Id: '',                // Örn: 'G-XXXXXXXXXX'
+    adsId: '',                // Örn: 'AW-XXXXXXXXXX'
+    adsCallConversion: '',    // Birincil (Primary): 'AW-XXXXXXXXXX/AbCdEfGhIjKlMnOp' (tel: tıklamaları)
+    adsWhatsappConversion: '' // İkincil (Secondary / Gözlem): WhatsApp buton & teklif formu dönüşümü
   }
 };
 

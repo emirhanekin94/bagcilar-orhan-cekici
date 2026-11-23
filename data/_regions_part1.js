@@ -12,8 +12,8 @@ module.exports = [
     geo: { lat: 41.0343, lng: 28.8567 },
     hero: 'saha-merkez',
     fieldImage: 'saha-cadde',
-    cardSummary: 'Bağcılar Meydan, İstanbul Caddesi ve dar mahalle sokaklarına 10–12 dakikada ulaşan kayar kasa ve patenli çekici desteği.',
-    heroLead: 'Bağcılar Meydanı, Çiftlik ve Kirazlı hattındaki yoğun ilçe trafiğinde aracınız durduğunda bekletmeden yanınıza ulaşıyoruz. Dar tek yönlü sokaklara uygun kompakt kurtarıcılarımızla otomobilinizi hasarsız biçimde istediğiniz servise naklediyoruz.',
+    cardSummary: 'Bağcılar Meydan, İstanbul Caddesi ve dar mahalle sokaklarına 10–12 dakikada ulaşan en yakın Bağcılar oto çekici ve yol yardım.',
+    heroLead: 'Bağcılar oto çekici ve 7/24 Bağcılar yol yardım hattımızla Bağcılar Meydanı, Çiftlik ve Kirazlı trafiğinde aracınız durduğunda bekletmeden yanınıza ulaşıyoruz. En yakın Bağcılar çekici ekiplerimizle dar tek yönlü sokaklarda bile otomobilinizi hasarsız biçimde istediğiniz servise naklediyoruz.',
     landmarks: [
       'Bağcılar Meydanı',
       'İstanbul Caddesi',
@@ -41,7 +41,7 @@ module.exports = [
       <p>Yükleme tamamlandığında dört noktalı yumuşak dokulu jant kemerleri kullanılır; tampon, marşpiyel ve alt şasi muhafazası hiçbir metal kancayla temas etmez. İstikamet olarak ister Demirkapı ve Güngören sanayi ustalarını, ister İkitelli Atatürk Oto Sanayi Sitesi'ni ya da marka yetkili servislerini seçebilirsiniz. Aracınız teslim tutanağıyla ustanıza eksiksiz bırakılır. Ayrıca Çınar, İnönü, Kemalpaşa ve Yavuz Selim mahallelerindeki dar apartman önlerinden yapılan çekimlerde komşu araçlara zarar vermemek adına işaretçi eşliğinde manevra uygulanır.</p>
 
       <div class="callout-box">
-        <strong>Bağcılar Nöbetçi Hat Bilgisi:</strong> Konumunuzu WhatsApp üzerinden paylaştığınızda veya ${BUSINESS.phoneDisplay} numarasını aradığınızda size en yakın ilçe içi kurtarıcı doğrudan yönlendirilir. Sabit mesafe politikasıyla yola çıkmadan önce net ücret bilgisi verilir.
+        <strong>Bağcılar Oto Çekici Nöbetçi Hat:</strong> Konumunuzu WhatsApp üzerinden paylaştığınızda veya ${BUSINESS.phoneDisplay} numarasını aradığınızda size en yakın Bağcılar çekici aracı doğrudan yönlendirilir. Sabit mesafe fiyat politikasıyla yola çıkmadan önce net ücret bilgisi verilir.
       </div>
 
       <h3>Gece Nöbeti ve 7/24 Kesintisiz İlçe Kapsaması</h3>
@@ -74,15 +74,15 @@ module.exports = [
   },
   {
     slug: 'goztepe',
-    name: 'Göztepe',
-    navbarTitle: 'GÖZTEPE ÇEKİCİ',
+    name: 'Bağcılar Göztepe',
+    navbarTitle: 'BAĞCILAR GÖZTEPE ÇEKİCİ',
     category: 'mahalle',
     eta: '10–15 Dk',
     geo: { lat: 41.0531, lng: 28.8424 },
     hero: 'saha-suv',
     fieldImage: 'kapali-otopark',
-    cardSummary: 'Batışehir, Medipol Mega ve Göztepe kapalı site otoparklarına alçak tavanlı araçlarla 10–15 dakikada hasarsız müdahale.',
-    heroLead: 'Bağcılar Göztepe, Batışehir rezidansları ve Medipol Mega çevresindeki çok katlı otoparklar ile TEM bağlantı yollarında 7/24 görevdeyiz. Alçak tavan aparatlı kurtarıcılarımızla en dar yeraltı rampalarından bile aracınızı çizmeden çıkarıyoruz.',
+    cardSummary: 'Avrupa Yakası Bağcılar Göztepe, Batışehir ve Medipol Mega kapalı otoparklarına 10–15 dakikada ulaşan alçak tavanlı oto çekici.',
+    heroLead: 'Avrupa Yakası Bağcılar Göztepe oto çekici ve 7/24 yol yardım ekibimizle Batışehir rezidansları, Medipol Mega çevresi ve TEM bağlantı yollarında en yakın Bağcılar Göztepe çekici desteğini sunuyoruz. Alçak tavan aparatlı kurtarıcılarımızla en dar yeraltı rampalarından bile aracınızı çizmeden çıkarıyoruz.',
     landmarks: [
       'Medipol Mega Üniversite Hastanesi',
       'Batışehir Karma Yaşam Kompleksi',
@@ -113,8 +113,8 @@ module.exports = [
         <strong>Kapalı Otoparkta Kaldıysanız İpucu:</strong> Aracınızın bulunduğu katı, tavan yüksekliği tabelasını (örneğin 2.10 m) ve vitesin boşa geçip geçmediğini ${BUSINESS.phoneDisplay} hattımıza iletmeniz, doğru ekipmanın ilk seferde gelmesini sağlar.
       </div>
 
-      <h3>Göztepe Sakinleri İçin Şeffaf ve Hızlı Yol Yardım</h3>
-      <p>İster sabah işe giderken Batışehir otoparkında marş basmayan aracınız için, ister gece saatlerinde Medipol önündeki ani bir lastik yarılmada ${BUSINESS.name} bir telefon uzağınızdadır. Bölgenin tüm site girişlerini, M7 metro çevresindeki ara bağlantıları ve TEM dönüş kollarını bilen kadromuzla, aracınızı güvenilir ellere emanet etmenin rahatlığını yaşarsınız. İşlem öncesinde kat durumu ve gidilecek servis mesafesi netleştirilerek sürpriz ek masraf olmadan sabit fiyat paylaşılır.</p>
+      <h3>Bağcılar Göztepe Sakinleri İçin En Yakın ve Şeffaf Yol Yardım</h3>
+      <p>İster sabah işe giderken Batışehir otoparkında marş basmayan aracınız için, ister gece saatlerinde Medipol önündeki ani bir lastik yarılmada en yakın Bağcılar Göztepe oto çekici ve oto kurtarma desteği olarak ${BUSINESS.name} bir telefon uzağınızdadır. Anadolu Yakası Göztepe'den bağımsız olarak yalnızca Avrupa Yakası Bağcılar Göztepe bölgesinin tüm site girişlerini, M7 metro çevresindeki ara bağlantıları ve TEM dönüş kollarını bilen kadromuzla aracınızı güvenilir ellere emanet edersiniz. İşlem öncesinde kat durumu ve gidilecek servis mesafesi netleştirilerek sürpriz ek masraf olmadan sabit fiyat paylaşılır.</p>
     `,
     fieldLogTitle: 'Batışehir Eksi Üçüncü Kat Otoparkından Elektronik Freni Kilitli SUV Çıkarılması',
     fieldLogDesc: 'Hafta içi sabah saatlerinde Batışehir yerleşkesinin eksi üçüncü katında aküsü tamamen tükenen ve elektronik el freni çözülmeyen bir SUV için alçak tavan kurtarıcımız yönlendirildi. 2.15 metrelik kiriş altından güvenle geçen ekibimiz, dört tekerleğe paten takarak aracı dar spiral rampadan yüzeye çıkardı. Açık alanda kayar kasaya aktarılan otomobil, tampon altı muhafazası dahi çizilmeden yetkili servise ulaştırıldı.',
@@ -151,7 +151,7 @@ module.exports = [
     hero: 'saha-cadde',
     fieldImage: 'saha-sedan',
     cardSummary: 'Güneşli Meydan, Evren ve Koçman Caddesi ile 212 AVM hattında binek ve ticari araçlara 10–15 dakikada acil çekici.',
-    heroLead: 'Güneşli Meydan, Evren Caddesi ve 212 AVM çevresindeki ticari ve konut trafiğinde yolda kaldığınızda hızlı müdahale sağlıyoruz. Binek otomobillerden tekstil dağıtım araçlarına kadar her segmenti güvenle yükleyip sanayiye veya servise ulaştırıyoruz.',
+    heroLead: 'Güneşli oto çekici ve 7/24 Güneşli yol yardım hattımızla Güneşli Meydan, Evren Caddesi ve 212 AVM çevresindeki trafikte yolda kaldığınızda en yakın Güneşli çekici aracını yönlendiriyoruz. Binek otomobillerden tekstil dağıtım araçlarına kadar her segmenti sabit fiyatla güvenle yükleyip sanayiye veya servise ulaştırıyoruz.',
     landmarks: [
       'Güneşli Meydan',
       'Evren Caddesi',
@@ -220,7 +220,7 @@ module.exports = [
     hero: 'saha-gunbatimi',
     fieldImage: 'saha-otoyol',
     cardSummary: 'Mahmutbey Gişeleri, TEM Otoyolu ve Mall of İstanbul kavşağında emniyet şeridi güvenlikli 7/24 oto kurtarma desteği.',
-    heroLead: 'TEM Otoyolu Mahmutbey Gişeleri, Mall of İstanbul çevresi ve Taşocağı Yolu üzerindeki arıza ve kazalarda dakikalar içinde emniyet şeridindeyiz. Yüksek hızlı otoyol disipliniyle aracınızı tehlikeli trafik akışından hızla uzaklaştırıyoruz.',
+    heroLead: 'Mahmutbey oto çekici ve 7/24 Mahmutbey yol yardım ekibimizle TEM Otoyolu Mahmutbey Gişeleri, Mall of İstanbul çevresi ve Taşocağı Yolu üzerindeki arıza ve kazalarda en yakın Mahmutbey çekici olarak dakikalar içinde emniyet şeridindeyiz. Yüksek hızlı otoyol disipliniyle aracınızı tehlikeli trafik akışından hızla uzaklaştırıyoruz.',
     landmarks: [
       'Mahmutbey Gişeleri',
       'TEM (O-3) Otoyolu Bağlantısı',
@@ -289,7 +289,7 @@ module.exports = [
     hero: 'saha-otoyol',
     fieldImage: 'saha-gunbatimi',
     cardSummary: 'Basın Ekspres Yolu, Kuyumcukent ve Starcity hattında ana yol ile yan yol ayrımlarına hakim 7/24 acil oto çekici.',
-    heroLead: 'E-5 ile TEM Otoyolu’nu bağlayan Basın Ekspres Yolu, Starcity ve Kuyumcukent çevresinde arıza ya da kaza anında hızla yanınızdayız. Ana arter ve yan yol ayrımlarını karıştırmadan doğrudan bulunduğunuz şeride ulaşıyoruz.',
+    heroLead: 'Basın Ekspres oto çekici ve 7/24 yol yardım ekibimizle E-5 ile TEM Otoyolu’nu bağlayan Basın Ekspres Yolu, Starcity ve Kuyumcukent çevresinde arıza ya da kaza anında en yakın Basın Ekspres çekici desteğini sunuyor. Ana arter ve yan yol ayrımlarını karıştırmadan sabit fiyatlı oto kurtarma ile bulunduğunuz şeride ulaşıyoruz.',
     landmarks: [
       'Basın Ekspres Yolu (O-7 Bağlantısı)',
       'Starcity Outlet AVM',
@@ -358,7 +358,7 @@ module.exports = [
     hero: 'ticari-panelvan',
     fieldImage: 'kamyonet-tasima',
     cardSummary: 'İSTOÇ Toptancılar Çarşısı ve Oto Ticaret Merkezi’nde yüklü panelvan, kamyonet ve galeri araçlarına 10–12 dakikada çekici.',
-    heroLead: 'İSTOÇ Toptancılar Çarşısı adaları ve İSTOÇ Oto Ticaret Merkezi içinde ticari araç arızaları ile galeri transferlerine anında çözüm üretiyoruz. Yüklü panelvanları mal indirmenize gerek kalmadan güçlendirilmiş kayar kasalarla güvenle taşıyoruz.',
+    heroLead: 'İSTOÇ oto çekici ve 7/24 İSTOÇ yol yardım ekibimizle İSTOÇ Toptancılar Çarşısı adaları ve İSTOÇ Oto Ticaret Merkezi içinde ticari araç arızaları ile galeri transferlerine en yakın İSTOÇ çekici olarak anında çözüm üretiyoruz. Yüklü panelvanları mal indirmenize gerek kalmadan net fiyat garantisiyle güçlendirilmiş kayar kasalarla güvenle taşıyoruz.',
     landmarks: [
       'İSTOÇ Toptancılar Çarşısı',
       'İSTOÇ Oto Ticaret Merkezi',
@@ -427,7 +427,7 @@ module.exports = [
     hero: 'saha-istasyon',
     fieldImage: 'ahtapot-mavi',
     cardSummary: '100. Yıl Mahallesi, Automall ve Matbaacılar Sitesi çevresinde ahtapot vinçli ve kayar kasalı 7/24 oto kurtarma.',
-    heroLead: 'Bağcılar 100. Yıl Mahallesi, Automall Galericiler Sitesi ve Matbaacılar Sitesi hattında 7/24 yol yardım desteği sunuyoruz. Kayar kasa ve ahtapot vinçli kurtarıcılarımızla dar sokaklarda sıkışan ya da tekerleği kilitlenen araçları güvenle kaldırıyoruz.',
+    heroLead: 'Yüzyıl oto çekici ve 7/24 yol yardım hizmetimizle Bağcılar 100. Yıl Mahallesi, Automall Galericiler Sitesi ve Matbaacılar Sitesi hattında en yakın Yüzyıl çekici desteğini sunuyoruz. Kayar kasa ve ahtapot vinçli kurtarıcılarımızla dar sokaklarda sıkışan ya da tekerleği kilitlenen araçları sabit fiyatla güvenle kaldırıyoruz.',
     landmarks: [
       'Automall Galericiler Sitesi',
       'Matbaacılar Sitesi (2. Matbaacılar)',
@@ -496,7 +496,7 @@ module.exports = [
     hero: 'kamyonet-tasima',
     fieldImage: 'kapali-otopark',
     cardSummary: 'Tekstilkent, Giyimkent ve Koza Plaza bloklarında kamyonet, panelvan ve plaza otopark araçlarına 7/24 çekici desteği.',
-    heroLead: 'Tekstilkent Ticaret Merkezi, Koza Plaza İkiz Kuleler ve Giyimkent hattında ticari filolara ve binek araçlara 7/24 yol yardım sağlıyoruz. Hem kumaş yüklü kamyonetlere hem de yeraltı plaza otoparkındaki şirket araçlarına uygun donanımla geliyoruz.',
+    heroLead: 'Tekstilkent oto çekici ve 7/24 yol yardım ekibimizle Tekstilkent Ticaret Merkezi, Koza Plaza İkiz Kuleler ve Giyimkent hattında ticari filolara ve binek araçlara en yakın Tekstilkent çekici desteğini sağlıyoruz. Hem kumaş yüklü kamyonetlere hem de yeraltı plaza otoparkındaki şirket araçlarına uygun donanım ve net fiyat politikasıyla geliyoruz.',
     landmarks: [
       'Tekstilkent Ticaret Merkezi (A-B-C Bloklar)',
       'Koza Plaza İkiz Kuleler',
@@ -562,10 +562,10 @@ module.exports = [
     category: 'sanayi',
     eta: '12–15 Dk',
     geo: { lat: 41.0719, lng: 28.8031 },
-    hero: 'is-makinesi',
-    fieldImage: 'ticari-panelvan',
-    cardSummary: 'İkitelli OSB, Atatürk Oto Sanayi ve Masko hattında binek araç, ticari panelvan ve forklift-iş makinesi nakliyesi.',
-    heroLead: 'İkitelli Organize Sanayi Bölgesi, Atatürk Oto Sanayi ve Masko çevresinde otomobil kurtarmadan forklift ve mini iş makinesi nakliyesine kadar geniş kapsamlı destek veriyoruz. Kooperatif içi kısa mesafe transferlerden acil yol yardıma kadar 7/24 sahadayız.',
+    hero: 'ticari-panelvan',
+    fieldImage: 'is-makinesi',
+    cardSummary: 'İkitelli OSB, Atatürk Oto Sanayi ve Masko hattında binek araç, ticari panelvan ve forklift nakliyesi için 7/24 İkitelli oto çekici.',
+    heroLead: 'İkitelli oto çekici ve 7/24 İkitelli yol yardım hattımızla İkitelli Organize Sanayi Bölgesi, Atatürk Oto Sanayi ve Masko çevresinde otomobil kurtarmadan forklift ve mini iş makinesi nakliyesine kadar en yakın İkitelli çekici desteğini veriyoruz. Kooperatif içi kısa mesafe transferlerden acil oto kurtarmaya kadar sabit fiyatla sahadayız.',
     landmarks: [
       'İkitelli Organize Sanayi Bölgesi (İOSB)',
       'Atatürk Oto Sanayi Sitesi (İkitelli)',

@@ -13,7 +13,7 @@ module.exports = [
     hero: 'saha-sedan',
     fieldImage: 'saha-cadde',
     cardSummary: 'Otogar rampaları, Dörtyol Meydanı ve Atışalanı yokuşlarına hızlı ulaşım. Esenler genelinde 7/24 hasarsız araç kurtarma.',
-    heroLead: `15 Temmuz Demokrasi Otogarı bağlantılarından Atışalanı ve Nine Hatun'un eğimli sokaklarına kadar Esenler'in her köşesine ${BUSINESS.name} araçları kesintisiz ulaşır. Bölge trafiğini bilen operatörlerimiz, dar geçişlerde bile aracınızı güvenle kayar kasaya yükleyip istediğiniz servise teslim eder.`,
+    heroLead: `Esenler oto çekici ve 7/24 Esenler yol yardım ekibimizle 15 Temmuz Demokrasi Otogarı bağlantılarından Atışalanı ve Nine Hatun'un eğimli sokaklarına kadar en yakın Esenler çekici olarak kesintisiz ulaşırız. Bölge trafiğini bilen ${BUSINESS.name} operatörleri, dar geçişlerde bile aracınızı sabit fiyatla kayar kasaya yükleyip istediğiniz servise teslim eder.`,
     landmarks: [
       '15 Temmuz Demokrasi Otogarı',
       'Esenler Dörtyol Meydanı',
@@ -77,7 +77,7 @@ module.exports = [
     hero: 'saha-gece',
     fieldImage: 'saha-merkez',
     cardSummary: 'Köyiçi, Haznedar, Akıncılar ve Kale Outlet çevresinde dar sokak uyumlu çekici desteği. Güngören geneline hızlı ulaşım.',
-    heroLead: `T1 tramvay hattının böldüğü dar sokaklardan Kale Outlet Center ve Mareşal Fevzi Çakmak Caddesi'ne kadar Güngören'in yoğun kent dokusunda ${BUSINESS.name} anında yanınızda. Sıkışık caddelerde trafiği tıkamadan, hızlı manevra yapan ekipmanlarımızla güvenilir kurtarma sağlıyoruz.`,
+    heroLead: `Güngören oto çekici ve 7/24 Güngören yol yardım hattımızla T1 tramvay hattının böldüğü dar sokaklardan Kale Outlet Center ve Mareşal Fevzi Çakmak Caddesi'ne kadar en yakın Güngören çekici olarak ${BUSINESS.name} anında yanınızda. Sıkışık caddelerde trafiği tıkamadan, hızlı manevra yapan ekipmanlarımızla net fiyat garantili oto kurtarma sağlıyoruz.`,
     landmarks: [
       'Kale Outlet Center',
       'Güngören Köyiçi Meydanı',
@@ -141,7 +141,7 @@ module.exports = [
     hero: 'ahtapot-vinc',
     fieldImage: 'saha-suv',
     cardSummary: 'Çam ve Sakura Hastanesi, İkitelli OSB, Mall of İstanbul ve Kayaşehir etaplarına 7/24 tam donanımlı çekici ve vinç.',
-    heroLead: `Başakşehir'in geniş bulvarlarından Çam ve Sakura Şehir Hastanesi kampüsüne, İkitelli OSB'den Kayaşehir site garajlarına kadar ${BUSINESS.name} kesintisiz yol yardım sunar. Dört çeker SUV'lerden ağır sanayi ticari araçlarına kadar her segment için doğru kurtarma donanımıyla sahadayız.`,
+    heroLead: `Başakşehir oto çekici ve 7/24 yol yardım hizmetimizle Başakşehir'in geniş bulvarlarından Çam ve Sakura Şehir Hastanesi kampüsüne, İkitelli OSB'den Kayaşehir site garajlarına kadar en yakın Başakşehir çekici desteğini ${BUSINESS.name} güvencesiyle sunuyoruz. Dört çeker SUV'lerden ağır sanayi ticari araçlarına kadar her segment için sabit fiyat ve doğru kurtarma donanımıyla sahadayız.`,
     landmarks: [
       'Başakşehir Çam ve Sakura Şehir Hastanesi',
       'İkitelli Organize Sanayi Bölgesi (OSB)',
@@ -205,7 +205,7 @@ module.exports = [
     hero: 'sehirlerarasi-tasima',
     fieldImage: 'saha-otoyol',
     cardSummary: 'E-5 Sefaköy–Cennet hattı, Göl Sahili ve Beşyol kavşağında 7/24 oto kurtarma ve şehirlerarası araç taşıma desteği.',
-    heroLead: `E-5 (D-100) Sefaköy–Cennet–Küçükçekmece koridorundan göl sahil yoluna ve Beşyol kavşağına kadar ${BUSINESS.name} kesintisiz acil çekici hizmeti verir. Otoyol hızında yaşanan ani arızalarda güvenlik öncelikli yaklaşımımızla aracınızı hem ilçe içi servislere hem de şehir dışına güvenle taşıyoruz.`,
+    heroLead: `Küçükçekmece oto çekici ve 7/24 yol yardım ekibimizle E-5 (D-100) Sefaköy–Cennet–Küçükçekmece koridorundan göl sahil yoluna ve Beşyol kavşağına kadar en yakın Küçükçekmece çekici hizmetini ${BUSINESS.name} kalitesiyle veririz. Otoyol hızında yaşanan ani arızalarda sabit fiyatlı oto kurtarma yaklaşımımızla aracınızı hem ilçe içi servislere hem de şehir dışına güvenle taşıyoruz.`,
     landmarks: [
       'E-5 Sefaköy – Cennet Metrobüs Hattı',
       'Küçükçekmece Gölü Sahil Yolu',
@@ -266,60 +266,60 @@ module.exports = [
     category: 'mahalle ilce',
     eta: '12–16 Dk',
     geo: { lat: 41.0369, lng: 28.7897 },
-    hero: 'kapali-otopark',
-    fieldImage: 'saha-istasyon',
-    cardSummary: 'Atakent siteleri, Halkalı Marmaray Garı, ArenaPark ve Gümrük Yolu için alçak tavan uyumlu 7/24 çekici hizmeti.',
-    heroLead: `Atakent'in çok katlı site otoparklarından Halkalı Marmaray İstasyonu ve Turgut Özal Bulvarı'na kadar ${BUSINESS.name} bölgeye özel ekipmanla hizmet verir. Alçak tavanlı kapalı garajlardan gümrük yolu ticari trafiğine kadar her noktada hasarsız ve dakik kurtarma sağlıyoruz.`,
+    hero: 'saha-istasyon',
+    fieldImage: 'kamyonet-tasima',
+    cardSummary: 'Halkalı Marmaray Garı, Halkalı Gümrük Yolu, Dereboyu Caddesi ve İZÜ çevresi için 7/24 Halkalı oto çekici ve yol yardım.',
+    heroLead: `Halkalı oto çekici ve 7/24 Halkalı yol yardım ekibimizle Halkalı Marmaray İstasyonu, Halkalı Gümrük Yolu ve Dereboyu Caddesi'nden İstasyon Mahallesi'ne kadar en yakın Halkalı çekici hizmetini ${BUSINESS.name} güvencesiyle sunuyoruz. Tır ve lojistik trafiğinden üniversite çevresi dar sokaklarına kadar her noktada sabit fiyatlı oto kurtarma sağlıyoruz.`,
     landmarks: [
-      'Halkalı Marmaray İstasyonu',
-      'Atakent 1.–3. Etap Toplu Konutları',
-      'ArenaPark AVM',
-      'Acıbadem Atakent Hastanesi',
-      'İstanbul Sabahattin Zaim Üniversitesi (İZÜ)',
+      'Halkalı Marmaray & Uluslararası Tren Garı',
       'Halkalı Gümrük Yolu',
-      'Turgut Özal Bulvarı'
+      'Halkalı Merkez Meydanı',
+      'İstanbul Sabahattin Zaim Üniversitesi (İZÜ)',
+      'Dereboyu Caddesi',
+      'İstasyon & Mehmet Akif Mahallesi',
+      'Turgut Özal Bulvarı Güney Girişi'
     ],
     articleHtml: `
-      <h2>Halkalı ve Atakent'te Kapalı Site Otoparkları ile Ana Arterlere Özel Yol Yardım</h2>
-      <p>Halkalı, son yıllarda hızla büyüyen yüksek katlı rezidansları, toplu konut etapları ve ulaşım aktarma merkezleriyle Küçükçekmece'nin en hareketli yerleşim havzalarından birine dönüştü. Atakent 1., 2. ve 3. Etap siteleri, Avrupa Konutları blokları, Soyak Olympiakent, Tema İstanbul çevresi ve Mehmet Akif Mahallesi'nde araçların büyük çoğunluğu eksi birinci veya eksi ikinci kattaki kapalı garajlarda barınır. Sabah işe çıkmak isteyen bir sürücünün kapalı otoparkta aküsü tamamen bitmiş, elektronik park freni bırakmayan ya da direksiyon kolon kilidi açılmayan aracıyla karşılaşması Halkalı'nın en yaygın yol yardım senaryosudur. ${BUSINESS.name}, bu tür tavan yüksekliği sınırlı ve dönemeçli rampalara uygun alçak profilli garaj kurtarma ekipmanıyla doğrudan site içine inerek sorunu çözer.</p>
-      <p>Öte yandan Halkalı yalnızca sakin site yaşamından ibaret değildir. Halkalı Marmaray İstasyonu ve uluslararası tren garı çevresi sabah erken saatlerden gece geç saatlere kadar yoğun bir yolcu indirme-bindirme temposuna sahiptir. İstanbul Sabahattin Zaim Üniversitesi (İZÜ) öğrencileri, ArenaPark AVM ziyaretçileri ve Acıbadem Atakent Hastanesi'ne gelen hasta yakınları, Turgut Özal Bulvarı ve Atakent Bulvarı üzerinde sürekli bir araç trafiği oluşturur. Halkalı Meydanı ve Dereboyu Caddesi hattında ise akşam iş çıkışı saatlerinde artan dur-kalk akışı, özellikle kış sabahlarında açık park alanlarında zayıflayan dizel yakıt sistemleri ve marş motorlarıyla birleştiğinde hızlı saha desteği gerektirir.</p>
-      <h3>Halkalı Gümrük Yolu ve Turgut Özal Bulvarı'nda Saha Gerçekleri</h3>
-      <p>Halkalı Gümrük Yolu ile İkitelli bağlantı koridoru, binek otomobillerle ağır lojistik araçlarının yan yana aktığı kritik bir eksendir. Bu bölgede yaşanabilecek bir lastik yarılması, hararet veya şanzıman arızasında aracın tır ve kamyon trafiğinin kör noktasında uzun süre beklemesi ciddi tehlike yaratır. Bölgede en sık karşılaştığımız müdahale alanları şunlardır:</p>
+      <h2>Halkalı Merkez, Tren Garı ve Gümrük Yolu Hattında Hızlı Oto Kurtarma</h2>
+      <p>Küçükçekmece'nin köklü ulaşım ve ticaret düğümü Halkalı; uluslararası tren garı, Marmaray başlangıç istasyonu, Gümrük Yolu lojistik koridoru ve tarihi merkez mahalleleriyle çevresindeki yeni konut bölgelerinden tamamen farklı bir trafik dokusuna sahiptir. Halkalı Merkez Meydanı, İstasyon Mahallesi, Yarımburgaz geçişi ve Dereboyu Caddesi boyunca günün erken saatlerinden gece yarısına kadar banliyö yolcuları, öğrenci servisleri ve esnaf dağıtım araçları iç içe akar. Bu hareketli akış içinde marş basmayan, baskı balatası kaçıran veya yakıt pompası kesilen bir otomobilin kısa sürede yoldan alınması gerekir. ${BUSINESS.name}, Basın Ekspres üzerinden doğrudan Halkalı eksenine bağlanan nöbetçi kadrosuyla en yakın Halkalı çekici desteğini 12–16 dakikada olay yerine ulaştırır.</p>
+      <p>Halkalı Merkez ve Mehmet Akif Mahallesi'nin yerleşik sokakları ise çift yönlü parklanma nedeniyle sıkışık dönüş açılarına sahiptir. İstanbul Sabahattin Zaim Üniversitesi (İZÜ) çevresinde ders giriş-çıkış saatlerinde dolup taşan park ceplerinde aküsü boşalan veya elektronik el freni kilitlenen araçları halatla sürüklemeye çalışmak şanzıman ve ön takım arızalarını büyütür. Bu noktalarda kısa aks mesafeli kayar kasalar ve tekerlek taşıma kızaklarıyla komşu araçlara temas etmeden yükleme gerçekleştiriyoruz.</p>
+      <h3>Halkalı Gümrük Yolu ve İstasyon Çevresinde Saha Gerçekleri</h3>
+      <p>Halkalı Gümrük Yolu ile İkitelli–Turgut Özal bağlantı kolu, binek otomobillerle ağır lojistik araçlarının aynı şeritleri paylaştığı yüksek riskli bir güzergahtır. Ağır vasıtaların kör noktasında lastiği yarılan, hararet yapan veya şanzıman hatası veren bir araç için saniyeler içinde refleks göstermek gerekir. Halkalı oto kurtarma ekibimizin bölgede en sık yönettiği operasyon başlıkları şunlardır:</p>
       <ul class="article-list">
-        <li><strong>Spiral rampalı kapalı garaj kurtarma:</strong> Atakent rezidans ve site otoparklarında tavan yüksekliği 2 metre bandındaki katlardan tekerlek kızaklı hasarsız tahliye.</li>
-        <li><strong>Marmaray ve üniversite çevresi acil destek:</strong> Halkalı Garı ile İZÜ hattında park halinde çalışmayan araçlara hızlı yerinde çekim veya servis nakli.</li>
-        <li><strong>Gümrük Yolu ve bulvar müdahaleleri:</strong> Ağır vasıta trafiğinin yoğun olduğu kesimlerde yüksek görünürlüklü emniyet şeridi koruması altında araç yükleme.</li>
-        <li><strong>Hastane ve AVM otopark desteği:</strong> Acıbadem Atakent Hastanesi ile ArenaPark kapalı garajlarında mekanik veya elektronik kilitlenme vakaları.</li>
+        <li><strong>Gümrük Yolu ağır trafik tahliyesi:</strong> Lojistik tır ve kamyon geçişlerinin yoğun olduğu cephesinde yüksek görünürlüklü flaşör ve reflektör güvenlik çemberiyle hızlı yükleme.</li>
+        <li><strong>Marmaray Garı ve İZÜ çevresi yol yardım:</strong> Gar otoparkı, yolcu indirme cepleri ve üniversite caddelerinde akü takviyesi ya da arızalı araç çekimi.</li>
+        <li><strong>Dereboyu ve Merkez esnaf desteği:</strong> Halkalı Merkez ticari işletmelerine mal dağıtan hafif ticari panelvan ve kamyonetlerin yükü boşaltılmadan sanayiye nakli.</li>
+        <li><strong>Yarımburgaz ve İstasyon bağlantı müdahaleleri:</strong> Eğimli ara sokaklarda aks kesen, rotili çıkan veya kilitlenen araçların kızaklı platformla güvenli çıkarımı.</li>
       </ul>
-      <h3>Basın Ekspres, İstoç ve İkitelli Servislerine Kısa Sürede Teslim</h3>
-      <p>Halkalı'nın Basın Ekspres, Güneşli, İstoç ve İkitelli oto sanayi bölgelerine olan yakınlığı, arızalı araçların hızlıca doğru ustaya ulaşmasını kolaylaştırır. İster yetkili servis randevunuza yetiştirmek isteyin ister kasko anlaşmalı kaporta servisine yönlendirin; ${BUSINESS.phoneDisplay} numarasından bizimle iletişime geçtiğinizde site güvenlik giriş izni, bariyer yüksekliği ve rampa dönüş detaylarını önceden teyit ederek zamandan tasarruf ediyoruz.</p>
+      <h3>İkitelli ve Sefaköy Sanayilerine Kesintisiz Sevkiyat</h3>
+      <p>Halkalı'dan İkitelli Atatürk Oto Sanayi Sitesi, Sefaköy Beşyol tamir bölgesi ve Basın Ekspres üzerindeki yetkili marka servislerine ulaşım birkaç dakika mesafededir. Telefonla ${BUSINESS.phoneDisplay} hattını aradığınızda bulunduğunuz cadde ve varış noktasını paylaştığınız anda net çekici fiyatı ve tahmini varış süresi açıkça bildirilir; gece saatlerinde veya yoğun trafikte sürpriz ek ücret talep edilmez.</p>
       <div class="callout-box">
-        <strong>Site Otoparkı Notu:</strong> Kapalı garajdan çekici talep ederken site yönetimine veya güvenlik kulübesine araç giriş bilgisini önceden iletmeniz ve otopark tavan yüksekliğini yaklaşık olarak paylaşmanız, doğru kurtarıcının ilk seferde gelmesini sağlar.
+        <strong>Halkalı Garı ve Gümrük Yolu İpucu:</strong> Halkalı Marmaray Garı veya Gümrük Yolu üzerinde arıza yaşadığınızda hangi çıkış yönünde (İkitelli, Sefaköy veya Altınşehir istikameti) beklediğinizi belirtmeniz, kurtarıcının tek tur dahi atmadan yanınıza yanaşmasını sağlar.
       </div>
-      <p>Atakent'teki kapalı sitelerde özellikle hafta sonu akşamlarında ya da tatil dönüşlerinde marş basmayan hibrit, elektrikli ve start-stop sistemli araçlara üretici tavsiyelerine uygun tam platform taşıması uyguluyoruz. Yarımburgaz ve İstasyon çevresindeki bağlantı yollarında gece saatlerinde meydana gelen kaza ve lastik hasarlarında da hızlı reflektör önlemi alarak güvenli yükleme yapıyoruz. Halkalı Merkez'den Atakent etaplarına, İstasyon Mahallesi'nden Turgut Özal Bulvarı'na kadar ${BUSINESS.name} modern ekipmanı ve düzenli bakımlı filosuyla 7/24 hizmetinizdedir.</p>
+      <p>Kış sabahlarında açık otopark ceplerinde marş almayan dizel araçlardan gece geç saatte tren garından ayrılırken lastiği inen aile otomobillerine kadar ${BUSINESS.name} Halkalı'da 7/24 nöbet tutar. Aracınız yükleme anından servis teslimine kadar dört tekerlekten yumuşak kayışlarla sabitlenir, nakliye emtia kaskosu kapsamında korunur.</p>
     `,
-    fieldLogTitle: 'Atakent Kapalı Site Otoparkında Akü ve Vites Kilidi Açılmayan Hibrit Aracın Çıkarılması',
-    fieldLogDesc: 'Atakent 2. Etap içindeki bir sitenin eksi ikinci kat otoparkında aküsü tamamen boşalan ve şanzıman kilidi devre dışı bırakılamayan hibrit bir otomobil bulunduğu kolon aralığında kaldı. Alçak şasili garaj kurtarma aracımız güvenlik kaydının ardından bodrum kata inip dört tekerleği bağımsız kızaklara alarak spiral rampadan sürtme olmadan çıkış yaptı. Açık alana çıkarılan araç, kayar kasaya aktarılarak İkitelli yönündeki yetkili servise teslim edildi.',
+    fieldLogTitle: 'Halkalı Gümrük Yolu Bağlantısında Hararet Yapan Hafif Ticarinin Güvenli Tahliyesi',
+    fieldLogDesc: 'Öğle saatlerinde Halkalı Gümrük Yolu üzerinde ağır vasıta yoğunluğu arasında soğutma radyatörü delinen kapalı kasa bir hafif ticari araç emniyet cebine çekildi. Basın Ekspres geçişinden 14 dakikada noktaya ulaşan kayar kasa ekibimiz, reflektör şeridiyle tır akışını güvenli açıdan yönlendirerek aracı dakikalar içinde platforma aldı. Yüküyle birlikte dengeli sabitlenen araç İkitelli Atatürk Oto Sanayi Sitesi içindeki servise teslim edildi.',
     faqs: [
       {
-        q: 'Atakent sitelerinin alçak tavanlı ve spiral rampalı bodrum otoparklarına çekici girebiliyor mu?',
-        a: 'Evet. Yüksek kasalı çekicilerin sığmadığı kapalı garajlar için özel düşük tavanlı kurtarma aracımız ve tekerlek taşıma kızaklarımız bulunur. Araç rampa ve kolonlara temas etmeden dışarı çıkarılır.'
-      },
-      {
         q: 'Halkalı Gümrük Yolu üzerinde ağır vasıta trafiği arasında aracım bozulursa ne kadar sürede gelirsiniz?',
-        a: 'Basın Ekspres ve Halkalı bağlantı noktasındaki ekibimiz ortalama 12–16 dakika içinde Gümrük Yolu hattına ulaşır. Olay yerine gelene kadar dörtlüleri yakıp güvenli bariyer dışına geçmeniz önemlidir.'
+        a: 'Basın Ekspres ve Halkalı bağlantı noktasındaki nöbetçi ekibimiz ortalama 12–16 dakika içinde Gümrük Yolu hattına ulaşır. Ekip gelene kadar dörtlü ikazları yakıp bariyer gerisinde beklemeniz önerilir.'
       },
       {
-        q: 'Halkalı Marmaray İstasyonu çevresinde park halindeyken çalışmayan araç için doğrudan çekici mi çağırmalıyım?',
-        a: 'Arıza yalnızca akü bitmesiyse takviye yeterli olabilir; ancak yeni nesil araçlarda şarj dinamosu, marş motoru veya immobilizer şüphesi varsa yanlış takviye beyne zarar verebilir. Telefonla belirtileri paylaştığınızda en güvenli yöntemi birlikte belirleriz.'
+        q: 'Halkalı Marmaray Tren Garı yolcu indirme alanında kalan aracım için çekici çağırabilir miyim?',
+        a: 'Evet. Gar çevresindeki indirme ceplerini ve otopark girişlerini bilen operatörlerimiz trafiği aksatmadan aracınızı kısa sürede platforma yükleyip istediğiniz servise taşır.'
       },
       {
-        q: 'ArenaPark AVM ve Turgut Özal Bulvarı akşam yoğunluğunda çekici ücreti değişiyor mu?',
-        a: 'Trafik yoğunluğuna göre saatlik sürpriz fark eklemiyoruz. Konumunuz ve gideceğiniz servis mesafesi netleştiğinde toplam ücret en başta sabit olarak bildirilir.'
+        q: 'Dereboyu Caddesi ve Halkalı Merkez esnafının ticari panelvanlarını yüklü taşır mısınız?',
+        a: 'Evet. Yasal ağırlık sınırları içindeki panelvan ve hafif kamyonetleri içindeki malzemeyi indirmenize gerek kalmadan güçlendirilmiş kayar kasa araçlarımızla servise götürüyoruz.'
       },
       {
-        q: 'Acıbadem Atakent Hastanesi otoparkında refakatçi aracımız arızalandığında gece hizmet alabilir miyiz?',
-        a: `Evet, ${BUSINESS.name} haftanın yedi günü 24 saat kesintisiz nöbet tutar. Gece saatlerinde de hastane otoparkına gelerek aracınızı evinize veya belirlediğiniz servise güvenle taşırız.`
+        q: 'İZÜ ve İstasyon Mahallesi dar sokaklarında sabit fiyat nasıl belirleniyor?',
+        a: 'Bulunduğunuz konum ile aracın bırakılacağı servis veya adres arasındaki mesafe ve araç sınıfına göre arama sırasında net rakam verilir; işlem sonunda ek masraf çıkarılmaz.'
+      },
+      {
+        q: 'Halkalı’dan Sefaköy veya İkitelli sanayilerine gece yarısı çekici hizmeti alabilir miyim?',
+        a: `Evet, ${BUSINESS.name} Halkalı bölgesinde 7 gün 24 saat aktif nöbet düzeniyle çalışır; gece saatlerinde de aynı hız ve kaskolu taşıma güvencesiyle hizmet verir.`
       }
     ]
   },
@@ -333,7 +333,7 @@ module.exports = [
     hero: 'kazali-kurtarma',
     fieldImage: 'saha-sedan',
     cardSummary: 'Yayla, Şirinevler, Soğanlı, Kocasinan ve E-5 İncirli hattında kazalı araç kurtarma ve 7/24 acil çekici desteği.',
-    heroLead: `E-5 Şirinevler–İncirli hattından Talatpaşa ve Adnan Kahveci bulvarlarına, Yayla'dan Soğanlı ve Kocasinan'a kadar ${BUSINESS.name} Bahçelievler'in her noktasında hızlı çözüm üretir. Maddi hasarlı kazalardan mekanik arızalara kadar aracınızı ikincil hasar oluşmadan güvenle taşıyoruz.`,
+    heroLead: `Bahçelievler oto çekici ve 7/24 Bahçelievler yol yardım ekibimizle E-5 Şirinevler–İncirli hattından Talatpaşa ve Adnan Kahveci bulvarlarına, Yayla'dan Soğanlı ve Kocasinan'a kadar en yakın Bahçelievler çekici hizmetini ${BUSINESS.name} güvencesiyle sunuyoruz. Maddi hasarlı kazalardan mekanik arızalara kadar aracınızı sabit fiyatlı oto kurtarma ile güvenle taşıyoruz.`,
     landmarks: [
       'E-5 Şirinevler – Bahçelievler – İncirli Hattı',
       'Adnan Kahveci & Talatpaşa Bulvarları',
@@ -397,7 +397,7 @@ module.exports = [
     hero: 'ahtapot-mavi',
     fieldImage: 'ticari-panelvan',
     cardSummary: 'Kuyumcukent, Doğu Sanayi Sitesi, İDTM, Çobançeşme ve Basın Ekspres girişinde ticari ve binek 7/24 oto kurtarma.',
-    heroLead: `Basın Ekspres'in E-5 ile buluştuğu Yenibosna düğümünde, Kuyumcukent'ten Doğu Sanayi Sitesi ve İDTM fuar alanına kadar ${BUSINESS.name} kesintisiz saha desteği verir. Ticari panelvanlardan filo araçlarına, binek otomobillerden fuar ziyaretçilerine kadar dakik ve güvenli taşıma sunuyoruz.`,
+    heroLead: `Yenibosna oto çekici ve 7/24 Yenibosna yol yardım hattımızla Basın Ekspres'in E-5 ile buluştuğu Yenibosna düğümünde, Kuyumcukent'ten Doğu Sanayi Sitesi ve İDTM fuar alanına kadar en yakın Yenibosna çekici desteğini ${BUSINESS.name} kalitesiyle veririz. Ticari panelvanlardan filo araçlarına, binek otomobillerden fuar ziyaretçilerine kadar sabit fiyatlı oto kurtarma ve taşıma sunuyoruz.`,
     landmarks: [
       'Kuyumcukent',
       'Doğu Sanayi Sitesi',
@@ -458,10 +458,10 @@ module.exports = [
     category: 'mahalle sanayi',
     eta: '10–15 Dk',
     geo: { lat: 41.0124, lng: 28.8878 },
-    hero: 'atv-cekici',
+    hero: 'saha-sedan',
     fieldImage: 'kamyonet-tasima',
-    cardSummary: 'Merter Tekstil Merkezi, Keresteciler Sitesi ve E-5 Merter hattında kamyonet, binek ve motosiklet/ATV çekici desteği.',
-    heroLead: `Merter Tekstil Merkezi'nin yoğun toptancı sokaklarından Keresteciler Sitesi ve E-5 Merter–Cevizlibağ aksına kadar ${BUSINESS.name} 7/24 sahada. Kamyonet ve ticari nakliyeden motosiklet, scooter ve ATV taşımacılığına kadar her araca uygun özel sabitleme sistemiyle hizmet veriyoruz.`,
+    cardSummary: 'Merter Tekstil Merkezi, Keresteciler Sitesi ve E-5 Merter hattında kamyonet, binek ve motosiklet için 7/24 Merter oto çekici.',
+    heroLead: `Merter oto çekici ve 7/24 Merter yol yardım ekibimizle Merter Tekstil Merkezi'nin yoğun toptancı sokaklarından Keresteciler Sitesi ve E-5 Merter–Cevizlibağ aksına kadar en yakın Merter çekici olarak ${BUSINESS.name} sahada. Binek ve kamyonet nakliyesinden motosiklet taşımacılığına kadar sabit fiyat ve özel oto kurtarma sabitleme sistemiyle hizmet veriyoruz.`,
     landmarks: [
       'Merter Tekstil Merkezi',
       'Keresteciler Sitesi',

@@ -128,7 +128,7 @@ function buildHead({ title, description, canonicalPath, preloadHero, ogImage, sc
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"></noscript>
 ${preloadTags}
-  <link rel="stylesheet" href="/css/style.css?v=2.3">
+  <link rel="stylesheet" href="/css/style.css?v=3.0">
 ${schemaBlocks}
 </head>`;
 }
@@ -234,7 +234,7 @@ function buildFooter(regions, services) {
         <span aria-hidden="true">&middot;</span>
         <a href="/gizlilik-politikasi.html">Gizlilik &amp; KVKK Politikası</a>
       </div>
-      <a href="https://getpin.co" class="getpin-badge" target="_blank" rel="noopener noreferrer">Crafted with precision by <strong>getpin</strong></a>
+      <span class="footer-trust-note">${ICONS.shield}<span>7/24 Kaskolu &amp; Faturalı Hizmet</span></span>
     </div>
   </div>
 </footer>`;
@@ -247,10 +247,10 @@ function buildStickyActions(regionName = '') {
   const waHref = regionName ? waRegionLink(regionName) : waLink();
   return `<div class="sticky-actions floating-actions" role="region" aria-label="Hızlı iletişim çubuğu">
   <a href="${telLink()}" class="sticky-btn sticky-btn-call" data-placement="sticky_bar" aria-label="Hemen Ara ${BUSINESS.phoneDisplay}">
-    ${ICONS.phone}<span>HEMEN ARA</span>
+    ${ICONS.phone}<span class="sticky-btn-stack"><strong>HEMEN ARA</strong><small>${BUSINESS.phoneDisplay}</small></span>
   </a>
   <a href="${waHref}" class="sticky-btn sticky-btn-wa btn-send-location" data-placement="sticky_bar" data-region="${escapeHtml(regionName)}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden konum gönder">
-    ${ICONS.whatsapp}<span>KONUM AT</span>
+    ${ICONS.whatsapp}<span class="sticky-btn-stack"><strong>KONUM AT</strong><small>WhatsApp 7/24</small></span>
   </a>
 </div>`;
 }
@@ -265,6 +265,7 @@ function buildScripts() {
     ga4Id: BUSINESS.analytics.ga4Id || '',
     adsId: BUSINESS.analytics.adsId || '',
     adsCallConversion: BUSINESS.analytics.adsCallConversion || '',
+    adsWhatsappConversion: BUSINESS.analytics.adsWhatsappConversion || '',
     brandName: BUSINESS.name,
     phoneDisplay: BUSINESS.phoneDisplay,
     whatsappNumber: BUSINESS.whatsappNumber
@@ -310,8 +311,8 @@ function buildScripts() {
 
   return `<script>window.__SITE_CONFIG__=${JSON.stringify(cfg)};</script>
 ${gtagBootstrap}
-<script src="/js/anti-fraud.js" defer></script>
-<script src="/js/main.js" defer></script>`;
+<script src="/js/anti-fraud.js?v=3.0" defer></script>
+<script src="/js/main.js?v=3.0" defer></script>`;
 }
 
 /**
@@ -388,10 +389,21 @@ function breadcrumbSchema(items) {
 }
 
 function localBusinessSchema(regionCtx = null) {
+  const addressObj = {
+    '@type': 'PostalAddress',
+    addressLocality: regionCtx ? regionCtx.name : BUSINESS.address.locality,
+    addressRegion: BUSINESS.address.region,
+    addressCountry: BUSINESS.address.country
+  };
+  if (!regionCtx) {
+    addressObj.streetAddress = BUSINESS.address.street;
+    addressObj.postalCode = BUSINESS.address.postalCode;
+  }
+
   const base = {
     '@context': 'https://schema.org',
-    '@type': ['AutoRepair', 'EmergencyService', 'TowingService'],
-    name: regionCtx ? `${regionCtx.name} Çekici — ${BUSINESS.name}` : BUSINESS.name,
+    '@type': ['AutoRepair', 'EmergencyService'],
+    name: regionCtx ? `${regionCtx.name} Oto Çekici — ${BUSINESS.name}` : BUSINESS.name,
     url: regionCtx ? `${SITE_URL}/bolgeler/${regionCtx.slug}-oto-cekici.html` : `${SITE_URL}/`,
     telephone: BUSINESS.phoneTel,
     image: `${SITE_URL}/images/${regionCtx ? regionCtx.hero : 'hero-main'}.webp`,
@@ -404,12 +416,7 @@ function localBusinessSchema(regionCtx = null) {
         closes: '23:59'
       }
     ],
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: regionCtx ? regionCtx.name : BUSINESS.address.locality,
-      addressRegion: BUSINESS.address.region,
-      addressCountry: BUSINESS.address.country
-    },
+    address: addressObj,
     geo: {
       '@type': 'GeoCoordinates',
       latitude: regionCtx ? regionCtx.geo.lat : BUSINESS.geo.latitude,
@@ -419,6 +426,8 @@ function localBusinessSchema(regionCtx = null) {
       ? { '@type': 'Place', name: `${regionCtx.name}, İstanbul` }
       : { '@type': 'City', name: 'İstanbul Avrupa Yakası' }
   };
+  if (BUSINESS.email) base.email = BUSINESS.email;
+  if (Array.isArray(BUSINESS.sameAs) && BUSINESS.sameAs.length > 0) base.sameAs = BUSINESS.sameAs;
   return base;
 }
 
